@@ -353,6 +353,13 @@ func (db *DB) Session(config *Session) *DB {
 	return tx
 }
 
+// Context change current instance db's context to temporary ctx
+func (db *DB) Context(ctx context.Context) *DB {
+	db.getInstance()
+	db.Statement.Context = ctx
+	return db
+}
+
 // WithContext change current instance db's context to ctx
 func (db *DB) WithContext(ctx context.Context) *DB {
 	return db.Session(&Session{Context: ctx})
